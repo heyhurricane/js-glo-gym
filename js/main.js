@@ -129,28 +129,25 @@ const servicesSlider = () => {
     const nextSlide = (elem, index, strClass)  => { 
       elem[index].classList.add(strClass);
       elem[index].style.display ='block';
-      // if (index === (elem.length - 1)) {
-      //   nextSlideIndex = 0;
-      // }
     };
 
-    const autoPlaySlide = () => {
-      prevSlide(slide, currentSlide, 'slide--active');
-      if (currentSlide > nextSlideIndex) {
-        nextSlideIndex++;
-      }
-      else {
-        nextSlideIndex = currentSlide + 5;
-      }
-      currentSlide++;
-      if (currentSlide >= slide.length) {
-        currentSlide = 0;
-      }
-      if (nextSlideIndex >= slide.length) {
-        nextSlideIndex = 0;
-      }
-      nextSlide(slide, nextSlideIndex, 'slide--active');
-    };
+    // const autoPlaySlide = () => {
+    //   prevSlide(slide, currentSlide, 'slide--active');
+    //   if (currentSlide > nextSlideIndex) {
+    //     nextSlideIndex++;
+    //   }
+    //   else {
+    //     nextSlideIndex = currentSlide + 5;
+    //   }
+    //   currentSlide++;
+    //   if (currentSlide >= slide.length) {
+    //     currentSlide = 0;
+    //   }
+    //   if (nextSlideIndex >= slide.length) {
+    //     nextSlideIndex = 0;
+    //   }
+    //   nextSlide(slide, nextSlideIndex, 'slide--active');
+    // };
 
    slider.addEventListener('click', (event) => {
       event.preventDefault();
