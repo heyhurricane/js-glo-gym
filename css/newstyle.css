@@ -1,0 +1,31 @@
+.services-slider {
+  position: relative;
+}
+
+.services-slider .slide {
+  display: none;
+}
+
+.services-slider .slide--active {
+  display: block;
+}
+
+.slider-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 50%;
+  position: absolute;
+  top: 25%;
+  cursor: pointer;
+}
+
+.slider-btn-next {
+  background: url('../images/arrow-right.png') #ffd11a no-repeat center;
+  right: 0;
+}
+
+.slider-btn-prev {
+  background: url('../images/arrow-left.png') #ffd11a no-repeat center;
+  left: 0;
+}
