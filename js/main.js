@@ -2,7 +2,8 @@
 
 
 const selectClubs = () => {
-  const clubs = document.querySelector('.club-select');
+  const clubs = document.querySelector('.club-select'),
+        clubsList = document.querySelector('.clubs-list');
   let isSelected = false;
 
   const changeClub = () => {
@@ -13,10 +14,41 @@ const selectClubs = () => {
     else { ul.style.display = 'block'; }
     isSelected = !isSelected;
   };
-  
-  clubs.addEventListener('click', () => {
-    changeClub();
+
+  document.body.addEventListener('click', (event) => {
+    let target = event.target;
+    target = target.closest('.club-select'); 
+    if (!target && !event.target.classList.contains('club-select__list') && !event.target.classList.contains('club-select__option') && isSelected) {
+      changeClub();
+    }
+    else {
+      if (target) {
+        target = event.target;
+        console.log(target.classList);
+        if (!target.classList.contains('club-select__link')) {
+          if (!target.classList.contains('club-select__list') && !target.classList.contains('club-select__option')) {
+            changeClub();
+          }
+        }
+        else {
+          console.log(target.classList);
+        }
+      }
+    }
   });
+  
+  // clubs.addEventListener('click', (event) => {
+  //   let target = event.target;
+  //   console.log(target.classList);
+  //   if (!target.classList.contains('club-select__link')) {
+  //     if (!target.classList.contains('club-select__list') && !target.classList.contains('club-select__option')) {
+  //       changeClub();
+  //     }
+  //   }
+  //   else {
+  //     console.log(target.classList);
+  //   }
+  // });
 };
 
 selectClubs();
