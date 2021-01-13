@@ -63,16 +63,19 @@ const togglePopUp = () => {
     popupClose(popupCallback, target);
   }));
 
-  popupGift.addEventListener('click', ((event) => {
-    let target = event.target;
-    popupClose(popupGift, target);
-  }));
+  if (popupGift) {
+    popupGift.addEventListener('click', ((event) => {
+      let target = event.target;
+      popupClose(popupGift, target);
+    }));
 
-  gift.addEventListener('click', (event) => {
-    event.preventDefault();
-    popupGift.style.display = 'block';
-    gift.style.display = 'none';
-  });
+    gift.addEventListener('click', (event) => {
+      event.preventDefault();
+      popupGift.style.display = 'block';
+      gift.style.display = 'none';
+    });
+  }
+  
 };
 
 togglePopUp();
@@ -118,8 +121,7 @@ const servicesSlider = () => {
   const slider = document.querySelector('.services-slider'),
         slide = slider.querySelectorAll('.slide');
 
-  let currentSlide = 0, nextSlideIndex = 0,
-    interval;
+  let currentSlide = 0, nextSlideIndex = 0;
 
     const prevSlide = (elem, index, strClass) => { 
       elem[index].classList.remove(strClass);
