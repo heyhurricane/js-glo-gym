@@ -29,12 +29,14 @@ const togglePopUp = () => {
         gift = document.querySelector('.fixed-gift'),
         popupGift = document.getElementById('gift');
 
-  openPopUp.addEventListener('click', () => {
+  openPopUp.addEventListener('click', (event) => {
+    event.preventDefault();
     popupFreeVisit.style.display = 'block';
   });
 
   callbackBtn.forEach((elem) => {
-    elem.addEventListener('click', () => {
+    elem.addEventListener('click', (event) => {
+      event.preventDefault();
       popupCallback.style.display = 'block';
     });
   });
@@ -66,7 +68,8 @@ const togglePopUp = () => {
     popupClose(popupGift, target);
   }));
 
-  gift.addEventListener('click', () => {
+  gift.addEventListener('click', (event) => {
+    event.preventDefault();
     popupGift.style.display = 'block';
     gift.style.display = 'none';
   });
