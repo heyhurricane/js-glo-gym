@@ -118,6 +118,9 @@ const sendForm = () => {
               input.value = '';
             });
             statusMessage.textContent = '';
+            setTimeout(() => {
+              popup.style.display = 'none';
+            }, 4000); 
           })
           .catch((error) => { 
             const popup = document.querySelector('#thanks');
@@ -127,7 +130,10 @@ const sendForm = () => {
             popupContent.textContent = errorMessage;
             popupHeader.textContent = 'Ошибка';
             statusMessage.textContent = '';
-            console.error(error);      
+            console.error(error);    
+            setTimeout(() => {
+              popup.style.display = 'none';
+            }, 4000);  
           });
       }
 
