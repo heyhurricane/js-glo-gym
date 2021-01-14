@@ -6,7 +6,8 @@ const togglePopUp = () => {
         callbackBtn = document.querySelectorAll('.callback-btn'),
         popupCallback = document.getElementById('callback_form'),
         gift = document.querySelector('.fixed-gift'),
-        popupGift = document.getElementById('gift');
+        popupGift = document.getElementById('gift'),
+        popupThanks = document.getElementById('thanks');
 
   openPopUp.addEventListener('click', (event) => {
     event.preventDefault();
@@ -54,6 +55,11 @@ const togglePopUp = () => {
       gift.style.display = 'none';
     });
   }
+
+  popupThanks.addEventListener('click', ((event) => {
+    let target = event.target;
+    popupClose(popupThanks, target);
+  }));
   
 };
 
