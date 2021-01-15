@@ -471,7 +471,11 @@ const sendForm = () => {
         }
        
         if (form.getAttribute('id') === 'form1' || form.getAttribute('id') === 'card_order' || form.getAttribute('id') === 'form2') { 
-          mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 2%; margin-top: 0.4rem;';
+          mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 2%;';
+          if (form.getAttribute('id') === 'card_order') {
+             mistake.style.cssText += 'margin-left: 30px; margin-bottom: 0.5rem;';
+          }
+          else { mistake.style.cssText += 'margin-top: 0.4rem;'; }
         }
         if (input.classList.contains('form-name') && (input.value.length < 2 || input.value.length > 50)) {
           mistake.textContent = 'Имя должно быть от 2 до 50 символов';
@@ -492,7 +496,7 @@ const sendForm = () => {
           }
           
           mistake.textContent = 'Необходимо подтвердить согласие!';
-          if (input.getAttribute('id') === 'check' || input.getAttribute('id') === 'check2') {
+          if (input.getAttribute('id') === 'check' || input.getAttribute('id') === 'check2' || form.getAttribute('id') === 'card_order' ) {
             input.parentNode.append(mistake);
           }
           else {
@@ -517,16 +521,27 @@ const sendForm = () => {
             if (response.status !== 200) {
               throw new Error("Status network isn't 200");
             }
-            inputs.forEach((input) => {
-              input.value = '';
-            });
             statusMessage.textContent = '';
-            if (form.getAttribute('id') === 'banner-form') {
+            if (form.getAttribute('id') === 'banner-form' || form.getAttribute('id') === 'card_order') {
               changeThanksContent('Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.', 'Спасибо!');
             }
             else {
               changePopupContent(form, 'Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.', 'Спасибо!');
             }
+            if (form.getAttribute('id') === 'card_order') {
+              for (let i = 6; i < inputs.length; i++) {
+                if (i === 7) { 
+                  if (!inputs[i].classList.contains('form-phone-club')) { continue; }
+                }
+                inputs[i].value = '';
+              }
+            }
+            else {
+              inputs.forEach((input) => {
+                input.value = '';
+              });
+            }
+            
           })
           .catch((error) => { 
             statusMessage.textContent = '';
