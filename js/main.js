@@ -364,9 +364,7 @@ const sendForm = () => {
         loadMessage = 'Идёт отправка...',
         successMessage = 'Отправлено! Мы скоро с Вами свяжемся';
 
-  const forms = document.querySelectorAll('form');
-  // const popup = document.querySelector('.popup');
-  
+  const forms = document.querySelectorAll('form'); 
 
   let statusMessage = document.createElement('div');
   
@@ -380,6 +378,51 @@ const sendForm = () => {
       },
       body: JSON.stringify(body)
     });
+  };
+
+  // изменение контента модального окна после отправки данных
+  const changePopupContent = (form, text, header) => {
+    const popup = form.closest('.popup');
+    const popupContent = form.childNodes;
+    const popupHeader = form.querySelector('h4');
+    popupHeader.textContent = header;
+    for (let i = 0; i < popupContent.length; i++) {
+      if (popupContent[i].nodeName !== '#text' && popupContent[i].nodeName !== 'H4' &&
+      popupContent[i].nodeName !== '#comment') {
+          popupContent[i].style.display = 'none';
+        }
+    }
+    const newP = document.createElement('p');
+    newP.classList.add('message');
+    newP.innerHTML = text;
+    newP.style.cssText = 'font-size: 20px; color: #fff; font-weight: 500;  margin-top: 30px;';
+    form.append(newP);
+    setTimeout(() => {
+      popup.style.display = 'none';
+      popupContent[0].innerHTML = '';
+      if (popup.getAttribute('id') === 'callback_form') { popupHeader.textContent = 'Обратный звонок'; }
+      else { popupHeader.textContent = 'Записаться на визит'; }
+      for (let i = 0; i < popupContent.length; i++) {
+        if (popupContent[i].nodeName !== '#text' && popupContent[i].nodeName !== 'H4'&&
+          popupContent[i].nodeName !== '#comment') {
+            popupContent[i].style.display = 'block';
+        }
+      }
+      form.removeChild(newP);
+    }, 4000); 
+  };
+
+  // изменение контента модального окна Thanks после отправки данных
+  const changeThanksContent = (text, header) => {
+    const popup = document.querySelector('#thanks');
+    popup.style.display = 'block';
+    const popupContent = popup.querySelector('.form-content p');
+    const popupHeader = popup.querySelector('.form-content h4');
+    popupContent.innerHTML = text;
+    popupHeader.textContent = header;    
+    setTimeout(() => {
+      popup.style.display = 'none';
+    }, 4000); 
   };
 
   forms.forEach((form) => {
@@ -408,7 +451,10 @@ const sendForm = () => {
         const mistake = newMistake;
         mistake.classList.add('mistake');
         if (form.getAttribute('id') === 'form1' || form.getAttribute('id') === 'card_order' || form.getAttribute('id') === 'form2') { 
-          if (input.parentNode.childNodes.length === 2) { input.parentNode.childNodes[1].remove(); }
+          if (input.classList.contains('form-check')) {
+            if (input.parentNode.childNodes.length === 4) { input.parentNode.childNodes[3].remove(); }
+          }
+          else if (input.parentNode.childNodes.length === 2) { input.parentNode.childNodes[1].remove(); }
         }
         else {
           if (input.parentNode.childNodes.length === 4) { input.parentNode.childNodes[3].remove(); }
@@ -442,11 +488,16 @@ const sendForm = () => {
             mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; margin-top: 0.4rem;';
           }
           else {
-            mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -5rem;';
+            mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -2rem;';
           }
           
           mistake.textContent = 'Необходимо подтвердить согласие!';
-          input.parentNode.parentNode.append(mistake);
+          if (input.getAttribute('id') === 'check' || input.getAttribute('id') === 'check2') {
+            input.parentNode.append(mistake);
+          }
+          else {
+            input.parentNode.parentNode.append(mistake);
+          }
           count++;
         }
       });
@@ -466,26 +517,26 @@ const sendForm = () => {
             if (response.status !== 200) {
               throw new Error("Status network isn't 200");
             }
-            const popup = document.querySelector('#thanks');
-            popup.style.display = 'block';
-            const popupContent = popup.querySelector('.form-content p');
-            const popupHeader = popup.querySelector('.form-content h4');
-            popupContent.innerHTML = 'Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.';
-            popupHeader.textContent = 'Спасибо!';
             inputs.forEach((input) => {
               input.value = '';
             });
             statusMessage.textContent = '';
+            if (form.getAttribute('id') === 'banner-form') {
+              changeThanksContent('Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.', 'Спасибо!');
+            }
+            else {
+              changePopupContent(form, 'Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.', 'Спасибо!');
+            }
           })
           .catch((error) => { 
-            const popup = document.querySelector('#thanks');
-            popup.style.display = 'block';
-            const popupContent = popup.querySelector('.form-content p');
-            const popupHeader = popup.querySelector('.form-content h4');
-            popupContent.textContent = errorMessage;
-            popupHeader.textContent = 'Ошибка';
             statusMessage.textContent = '';
-            console.error(error);      
+            console.error(error);    
+            if (form.getAttribute('id') === 'banner-form') {
+              changeThanksContent(errorMessage, 'Ошибка!');
+            }
+            else {
+              changePopupContent(form, errorMessage, 'Ошибка!');
+            }
           });
       }
 
