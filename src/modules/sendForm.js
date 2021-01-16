@@ -125,7 +125,11 @@ const sendForm = () => {
           count++;
         }
         if (input.classList.contains('form-phone') && input.value.length < 18) {
-          mistake.textContent = 'Номер должен содержать 11 символов';
+          if (form.getAttribute('id') === 'footer_form') {
+            mistake.style.cssText = 'font-size: 1rem; color: tomato; line-height: 1.2; text-align: left; margin-bottom: 0.4rem;';
+            mistake.innerHTML = 'Номер должен содержать<br>11 символов';
+          }
+          else { mistake.textContent = 'Номер должен содержать 11 символов'; }
           input.parentNode.append(mistake);
           count++;
         }
@@ -164,7 +168,7 @@ const sendForm = () => {
               throw new Error("Status network isn't 200");
             }
             statusMessage.textContent = '';
-            if (form.getAttribute('id') === 'banner-form' || form.getAttribute('id') === 'card_order') {
+            if (form.getAttribute('id') === 'banner-form' || form.getAttribute('id') === 'card_order' || form.getAttribute('id') === 'footer_form') {
               changeThanksContent('Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.', 'Спасибо!');
             }
             else {
@@ -181,17 +185,21 @@ const sendForm = () => {
               }
             }
             else {
-              inputs.forEach((input) => {
-                input.value = '';
-                if (input.classList.contains('form-check')) { input.checked = false;}
-              });
+              if (form.getAttribute('id') === 'footer_form') {
+                inputs[2].value = '';
+              } 
+              else {
+                inputs.forEach((input) => {
+                  input.value = '';
+                  if (input.classList.contains('form-check')) { input.checked = false;}
+                });
+              }
             }
-            
           })
           .catch((error) => { 
             statusMessage.textContent = '';
             console.error(error);    
-            if (form.getAttribute('id') === 'banner-form') {
+            if (form.getAttribute('id') === 'banner-form' || form.getAttribute('id') === 'card_order' || form.getAttribute('id') === 'footer_form') {
               changeThanksContent(errorMessage, 'Ошибка!');
             }
             else {
