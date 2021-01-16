@@ -99,13 +99,19 @@ const sendForm = () => {
           else if (input.parentNode.childNodes.length === 2) { input.parentNode.childNodes[1].remove(); }
         }
         else {
-          if (input.parentNode.childNodes.length === 4) { input.parentNode.childNodes[3].remove(); }
-          else if (input.classList.contains('form-check')) {
-            if (input.parentNode.parentNode.childNodes.length === 4) { input.parentNode.parentNode.childNodes[3].remove(); }
+          if (form.getAttribute('id') === 'footer_form') {
+            if (input.parentNode.childNodes.length === 2) { input.parentNode.childNodes[1].remove(); }
+            if (input.parentNode.childNodes.length === 5) { input.parentNode.childNodes[4].remove(); }
+          } 
+          else {
+            if (input.parentNode.childNodes.length === 4) { input.parentNode.childNodes[3].remove(); }
+            else if (input.classList.contains('form-check')) {
+              if (input.parentNode.parentNode.childNodes.length === 4) { input.parentNode.parentNode.childNodes[3].remove(); }
+            }
           }
         }
         mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 2%; bottom: -2.5rem; position: static;';
-        if (window.innerWidth >= 768) {
+        if (window.innerWidth >= 768 && form.getAttribute('id') !== 'footer_form') {
           mistake.style.cssText += 'position: absolute'; 
         }
         else {
@@ -132,6 +138,21 @@ const sendForm = () => {
           else { mistake.textContent = 'Номер должен содержать 11 символов'; }
           input.parentNode.append(mistake);
           count++;
+        }
+        if (input.getAttribute('name') === 'club-name') {
+          const checkClub = form.querySelectorAll('[name="club-name"]');
+          let countCheck = 0;
+          checkClub.forEach((check) => {
+            if (check.checked === false) { countCheck++; }
+          });
+          if (countCheck === 2) { 
+            if (input.getAttribute('id') === "footer_leto_schelkovo") {
+              mistake.textContent = 'Выберите клуб';
+              //  mistake.style.cssText += 'position: absolute'; 
+              input.parentNode.append(mistake);
+              count++;
+            }
+          }
         }
         if (input.classList.contains('form-check') && input.checked === false) {
           if (window.innerWidth >= 768) {
