@@ -529,16 +529,19 @@ const sendForm = () => {
               changePopupContent(form, 'Ваша заявка отправлена. <br> Мы свяжемся с вами в ближайшее время.', 'Спасибо!');
             }
             if (form.getAttribute('id') === 'card_order') {
+              inputs[0].checked = true;
               for (let i = 6; i < inputs.length; i++) {
                 if (i === 7) { 
                   if (!inputs[i].classList.contains('form-phone-club')) { continue; }
                 }
                 inputs[i].value = '';
+                if (inputs[i].classList.contains('form-check')) { inputs[i].checked = false;}
               }
             }
             else {
               inputs.forEach((input) => {
                 input.value = '';
+                if (input.classList.contains('form-check')) { input.checked = false;}
               });
             }
             
