@@ -8,6 +8,8 @@ import gallerySlider from './modules/gallerySlider';
 import maskPhone from './modules/maskPhone';
 import validation from './modules/validation';
 import sendForm from './modules/sendForm';
+import calc from './modules/calc';
+
 
 
 // выпадающее меню (селектор)
@@ -26,3 +28,5 @@ validation();
 maskPhone('[name="phone"]', '+7 (___) ___-__-__');
 // отправка форм
 sendForm();
+// калькулятор
+calc();

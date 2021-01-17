@@ -13,9 +13,16 @@ const validation = () => {
 
   const nameInputs = document.querySelectorAll('[name="name"]');
   nameInputs.forEach((nameInput) => {
-    nameInput.addEventListener('input', () => {
-      nameInput.value = nameInput.value.replace(/[^а-яА-Я\s]/,'');
-    });
+    if (!nameInput.matches('[placeholder="Промокод"]')) {
+      nameInput.addEventListener('input', () => {
+        nameInput.value = nameInput.value.replace(/[^а-яА-Я\s]/,'');
+      });
+    }
+    else {
+      nameInput.addEventListener('input', () => {
+        nameInput.value = nameInput.value.replace(/[^а-яА-Я\s\d]/,'');
+      });
+    }
   });
 
 };
