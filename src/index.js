@@ -9,7 +9,7 @@ import maskPhone from './modules/maskPhone';
 import validation from './modules/validation';
 import sendForm from './modules/sendForm';
 import calc from './modules/calc';
-
+import burgerMenu from './modules/burgerMenu';
 
 
 // выпадающее меню (селектор)
@@ -30,3 +30,5 @@ maskPhone('[name="phone"]', '+7 (___) ___-__-__');
 sendForm();
 // калькулятор
 calc();
+// появление бургер-меню
+burgerMenu();
