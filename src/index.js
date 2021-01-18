@@ -10,7 +10,7 @@ import validation from './modules/validation';
 import sendForm from './modules/sendForm';
 import calc from './modules/calc';
 import burgerMenu from './modules/burgerMenu';
-
+import scrolling from './modules/scrolling';
 
 // выпадающее меню (селектор)
 selectClubs();
@@ -32,3 +32,5 @@ sendForm();
 calc();
 // появление бургер-меню
 burgerMenu();
+// прокрутка
+scrolling();
