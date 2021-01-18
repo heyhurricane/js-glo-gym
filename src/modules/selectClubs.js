@@ -22,14 +22,10 @@ const selectClubs = () => {
     else {
       if (target) {
         target = event.target;
-        console.log(target.classList);
         if (!target.classList.contains('club-select__link')) {
           if (!target.classList.contains('club-select__list') && !target.classList.contains('club-select__option')) {
             changeClub();
           }
-        }
-        else {
-          console.log(target.classList);
         }
       }
     }

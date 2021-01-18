@@ -219,7 +219,6 @@ const sendForm = () => {
           })
           .catch((error) => { 
             statusMessage.textContent = '';
-            console.error(error);    
             if (form.getAttribute('id') === 'banner-form' || form.getAttribute('id') === 'card_order' || form.getAttribute('id') === 'footer_form') {
               changeThanksContent(errorMessage, 'Ошибка!');
             }

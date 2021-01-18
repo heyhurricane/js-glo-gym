@@ -15,12 +15,12 @@ const validation = () => {
   nameInputs.forEach((nameInput) => {
     if (!nameInput.matches('[placeholder="Промокод"]')) {
       nameInput.addEventListener('input', () => {
-        nameInput.value = nameInput.value.replace(/[^а-яА-Я\s]/,'');
+        nameInput.value = nameInput.value.replace(/[^а-яА-Я\s]/gi,'');
       });
     }
     else {
       nameInput.addEventListener('input', () => {
-        nameInput.value = nameInput.value.replace(/[^а-яА-Я\s\d]/,'');
+        nameInput.value = nameInput.value.replace(/[^а-яА-Я\s\d]/gi,'');
       });
     }
   });

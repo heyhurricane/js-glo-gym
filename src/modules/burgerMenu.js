@@ -56,6 +56,7 @@ const burgerMenu = () => {
     else {
       burgerBtn.style.display = 'none';
       desktopNav.style.display = 'flex';
+      document.querySelector(".top-menu").style.position = "static";
     }
   });
 
