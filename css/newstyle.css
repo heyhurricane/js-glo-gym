@@ -112,3 +112,11 @@ span.mistake {
     margin-bottom: 50px;
   }
 }
+
+@media only screen and (max-width:576px) {
+  .services-slider .slide--active {
+    margin: auto;
+  }
+
+  
+}

@@ -158,6 +158,8 @@ mainSlider();
 const servicesSlider = () => {
   const slider = document.querySelector('.services-slider'),
         slide = slider.querySelectorAll('.slide');
+  let activeSlides = slider.querySelectorAll('.slide--active');
+  let numActiveSlide = 5;
 
   let currentSlide = 0, nextSlideIndex = 0;
 
@@ -170,24 +172,6 @@ const servicesSlider = () => {
       elem[index].classList.add(strClass);
       elem[index].style.display ='block';
     };
-
-    // const autoPlaySlide = () => {
-    //   prevSlide(slide, currentSlide, 'slide--active');
-    //   if (currentSlide > nextSlideIndex) {
-    //     nextSlideIndex++;
-    //   }
-    //   else {
-    //     nextSlideIndex = currentSlide + 5;
-    //   }
-    //   currentSlide++;
-    //   if (currentSlide >= slide.length) {
-    //     currentSlide = 0;
-    //   }
-    //   if (nextSlideIndex >= slide.length) {
-    //     nextSlideIndex = 0;
-    //   }
-    //   nextSlide(slide, nextSlideIndex, 'slide--active');
-    // };
 
    slider.addEventListener('click', (event) => {
       event.preventDefault();
@@ -208,7 +192,7 @@ const servicesSlider = () => {
           nextSlideIndex++;
         }
         else {
-          nextSlideIndex = currentSlide + 5;
+          nextSlideIndex = currentSlide + numActiveSlide;
         }
         currentSlide++;
         if (currentSlide >= slide.length) {
@@ -252,6 +236,57 @@ const servicesSlider = () => {
 
     });
 
+  const resizeSlider = (activeSlide, numDelete, numAdd) => {
+    if (activeSlide.length === numDelete) {
+      activeSlide[activeSlide.length - 1].classList.remove('slide--active');
+    }
+    else {
+      if (activeSlide.length < numAdd) {
+        do {
+          slide[activeSlide.length].classList.add('slide--active');
+          activeSlide = slider.querySelectorAll('.slide--active');
+        }
+        while (activeSlide.length < numAdd);
+      }
+      else if (activeSlide.length > numAdd) {
+        do {
+          slide[activeSlide.length-1].classList.remove('slide--active');
+          activeSlide = slider.querySelectorAll('.slide--active');
+        }
+        while (activeSlide.length > numAdd);
+      }
+    }
+  };
+
+  const windowResize = (activeSlide) => {
+    if (window.innerWidth > 992) {
+      numActiveSlide = 5;
+      resizeSlider(activeSlide, 6, 5);
+    }
+    if (window.innerWidth <= 992 && window.innerWidth >= 768) {
+      numActiveSlide = 4;
+      resizeSlider(activeSlide, 5, 4);
+    }
+    if (window.innerWidth < 768 && window.innerWidth >= 577) {
+      numActiveSlide = 3;
+      resizeSlider(activeSlide, 4, 3);
+    }
+    if (window.innerWidth <= 576 && window.innerWidth >= 480) {
+      numActiveSlide = 2;
+      resizeSlider(activeSlide, 3, 2);
+    }
+    if (window.innerWidth < 480) {
+      numActiveSlide = 1;
+      resizeSlider(activeSlide, 2, 1);
+    };
+  };
+
+  windowResize(activeSlides);
+
+  window.addEventListener('resize', () => {
+    activeSlides = slider.querySelectorAll('.slide--active');
+    windowResize(activeSlides);
+  });
 };
 
 servicesSlider();
