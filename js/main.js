@@ -552,7 +552,13 @@ const sendForm = () => {
             mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; margin-top: 0.4rem;';
           }
           else {
-            mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -2rem;';
+            mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -4.1rem';
+            // if (window.innerWidth <= 576) {
+            //   mistake.style.cssText += 'top: -4.1rem';
+            // }
+            // else {
+            //   mistake.style.cssText += 'top: -2rem';
+            // }
           }
           
           mistake.textContent = 'Необходимо подтвердить согласие!';
@@ -768,6 +774,10 @@ const burgerMenu = () => {
     else {
       burgerBtn.style.display = 'none';
       desktopNav.style.display = 'flex';
+      document.querySelector(".top-menu").style.position = "static";
+      document.querySelector(".top-menu").style.top = '';
+      document.querySelector(".top-menu").style.left = '';
+      document.querySelector(".top-menu").style.right = '';
     }
   });
 
@@ -781,20 +791,28 @@ const scrolling = () => {
   const btnScrollUp = document.getElementById('totop');
   btnScrollUp.style.display = 'none';
   const burgerMenu = document.querySelector(".menu-button");
+
+  const toggleFixedMenu = (position, num) => {
+    document.querySelector(".top-menu").style.position = position;
+    document.querySelector(".top-menu").style.top = num;
+    document.querySelector(".top-menu").style.left = num;
+    document.querySelector(".top-menu").style.right = num;
+  };
+
   window.addEventListener('scroll', () => {
     if (burgerMenu.style.display === 'block') {
       if (window.pageYOffset > 0) {
         if (document.querySelector(".top-menu") !== null) {
-          document.querySelector(".top-menu").style.position = "fixed";
-          document.querySelector(".top-menu").style.top = '0';
-          document.querySelector(".top-menu").style.left = '0';
-          document.querySelector(".top-menu").style.right = '0';
+          toggleFixedMenu('fixed', '0');
         }
       } else {
         if (document.querySelector(".top-menu") !== null) {
-          document.querySelector(".top-menu").style.position = "static";
+          toggleFixedMenu('static', '');
         }
       }
+    }
+    else {
+      toggleFixedMenu('static', '');
     }
     const sectionHeight = document.querySelector(".header-main").scrollHeight;
     if (window.pageYOffset >= sectionHeight) {
