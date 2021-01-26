@@ -461,12 +461,6 @@ const sendForm = () => {
   };
 
   forms.forEach((form) => {
-    if (form.getAttribute('id') === 'footer_form') {
-      form.addEventListener('click', () => {
-        const formInput = forms[3].querySelector('#callback_form1-phone');
-        formInput.value = form.querySelectorAll('input')[2].value;
-      });
-    }
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const inputs = form.querySelectorAll('input');
@@ -553,12 +547,6 @@ const sendForm = () => {
           }
           else {
             mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -4.1rem';
-            // if (window.innerWidth <= 576) {
-            //   mistake.style.cssText += 'top: -4.1rem';
-            // }
-            // else {
-            //   mistake.style.cssText += 'top: -2rem';
-            // }
           }
           
           mistake.textContent = 'Необходимо подтвердить согласие!';
@@ -799,6 +787,27 @@ const scrolling = () => {
     document.querySelector(".top-menu").style.right = num;
   };
 
+  const scrollLinks = document.querySelectorAll('.scroll a[href*="#"], .about a[href*="#"], .for-clients a[href*="#"]');
+
+  const scrollingDown = () => {
+    scrollLinks.forEach((anchor) => {
+      if (anchor.attributes.href.value !== "index.html#clubs") {
+        anchor.addEventListener('click', (elem) => {
+          elem.preventDefault();
+          const blockID = anchor.getAttribute('href').substr(1);
+          if (document.getElementById(blockID) !== null) {
+            document.getElementById(blockID).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      }
+    });
+  };
+
+  scrollingDown();
+
   window.addEventListener('scroll', () => {
     if (burgerMenu.style.display === 'block') {
       if (window.pageYOffset > 0) {
@@ -823,7 +832,13 @@ const scrolling = () => {
     }
   });
 
-
+  btnScrollUp.addEventListener('click', (event) => {
+    event.preventDefault();
+    document.querySelector('.head-main').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  });
 
 };
 

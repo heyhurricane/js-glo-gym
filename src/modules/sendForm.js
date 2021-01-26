@@ -68,12 +68,6 @@ const sendForm = () => {
   };
 
   forms.forEach((form) => {
-    if (form.getAttribute('id') === 'footer_form') {
-      form.addEventListener('click', () => {
-        const formInput = forms[3].querySelector('#callback_form1-phone');
-        formInput.value = form.querySelectorAll('input')[2].value;
-      });
-    }
     form.addEventListener('submit', (event) => {
       event.preventDefault();
       const inputs = form.querySelectorAll('input');
@@ -159,7 +153,7 @@ const sendForm = () => {
             mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; margin-top: 0.4rem;';
           }
           else {
-            mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -2rem;';
+            mistake.style.cssText = 'font-size: 1rem; color: tomato; left: 0; top: -4.1rem';
           }
           
           mistake.textContent = 'Необходимо подтвердить согласие!';
@@ -219,6 +213,7 @@ const sendForm = () => {
           })
           .catch((error) => { 
             statusMessage.textContent = '';
+            console.error(error);    
             if (form.getAttribute('id') === 'banner-form' || form.getAttribute('id') === 'card_order' || form.getAttribute('id') === 'footer_form') {
               changeThanksContent(errorMessage, 'Ошибка!');
             }

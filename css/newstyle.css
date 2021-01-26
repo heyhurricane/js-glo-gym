@@ -94,6 +94,11 @@ span.mistake {
   display: block;
 }
 
+@media only screen and (max-width:955px) {
+  footer .call p.tel {
+    font-size: 18px;
+  }
+}
 
 @media only screen and (max-width:767px) {
   #banner-form {
@@ -117,6 +122,11 @@ span.mistake {
   .services-slider .slide--active {
     margin: auto;
   }
+}
 
-  
+@media only screen and (max-height:420px) {
+  .popup .form-wrapper {
+    height: 80%;
+    overflow: scroll;
+  }
 }

@@ -4,20 +4,49 @@ const scrolling = () => {
   const btnScrollUp = document.getElementById('totop');
   btnScrollUp.style.display = 'none';
   const burgerMenu = document.querySelector(".menu-button");
+
+  const toggleFixedMenu = (position, num) => {
+    document.querySelector(".top-menu").style.position = position;
+    document.querySelector(".top-menu").style.top = num;
+    document.querySelector(".top-menu").style.left = num;
+    document.querySelector(".top-menu").style.right = num;
+  };
+
+  const scrollLinks = document.querySelectorAll('.scroll a[href*="#"], .about a[href*="#"], .for-clients a[href*="#"]');
+
+  const scrollingDown = () => {
+    scrollLinks.forEach((anchor) => {
+      if (anchor.attributes.href.value !== "index.html#clubs") {
+        anchor.addEventListener('click', (elem) => {
+          elem.preventDefault();
+          const blockID = anchor.getAttribute('href').substr(1);
+          if (document.getElementById(blockID) !== null) {
+            document.getElementById(blockID).scrollIntoView({
+              behavior: 'smooth',
+              block: 'start'
+            });
+          }
+        });
+      }
+    });
+  };
+
+  scrollingDown();
+
   window.addEventListener('scroll', () => {
     if (burgerMenu.style.display === 'block') {
       if (window.pageYOffset > 0) {
         if (document.querySelector(".top-menu") !== null) {
-          document.querySelector(".top-menu").style.position = "fixed";
-          document.querySelector(".top-menu").style.top = '0';
-          document.querySelector(".top-menu").style.left = '0';
-          document.querySelector(".top-menu").style.right = '0';
+          toggleFixedMenu('fixed', '0');
         }
       } else {
         if (document.querySelector(".top-menu") !== null) {
-          document.querySelector(".top-menu").style.position = "static";
+          toggleFixedMenu('static', '');
         }
       }
+    }
+    else {
+      toggleFixedMenu('static', '');
     }
     const sectionHeight = document.querySelector(".header-main").scrollHeight;
     if (window.pageYOffset >= sectionHeight) {
@@ -28,7 +57,13 @@ const scrolling = () => {
     }
   });
 
-
+  btnScrollUp.addEventListener('click', (event) => {
+    event.preventDefault();
+    document.querySelector('.head-main').scrollIntoView({
+      behavior: 'smooth',
+      block: 'start'
+    });
+  });
 
 };
 

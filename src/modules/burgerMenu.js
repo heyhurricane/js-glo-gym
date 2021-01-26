@@ -57,6 +57,9 @@ const burgerMenu = () => {
       burgerBtn.style.display = 'none';
       desktopNav.style.display = 'flex';
       document.querySelector(".top-menu").style.position = "static";
+      document.querySelector(".top-menu").style.top = '';
+      document.querySelector(".top-menu").style.left = '';
+      document.querySelector(".top-menu").style.right = '';
     }
   });
 

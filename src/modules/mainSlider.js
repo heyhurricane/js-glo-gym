@@ -32,6 +32,7 @@ const mainSlider = () => {
 
     startSlide(4000);
 
+        
 };
 
 export default mainSlider;
